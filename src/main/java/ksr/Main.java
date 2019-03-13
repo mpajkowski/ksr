@@ -1,15 +1,15 @@
 package ksr;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
   public static void main(String[] args) {
       var extractor = new ReutersExtractor();
 
-      ArrayList<Article> articles = null;
+      List<Article> articles = null;
       try {
-          articles = extractor.extractSgmFile("data/reut2-000.sgm");
+          articles = extractor.extract("data/reut2-000.sgm");
       } catch (IOException e) {
           e.printStackTrace();
       }

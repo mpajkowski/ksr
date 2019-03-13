@@ -1,13 +1,13 @@
 package ksr;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class Article {
     private String title;
-    private ArrayList<String> places;
+    private List<String> places;
     private String text;
 
-    public ArrayList<String> getPlaces() {
+    public List<String> getPlaces() {
         return places;
     }
 
@@ -19,7 +19,7 @@ public class Article {
         return text;
     }
 
-    public Article(String title, ArrayList<String> places, String text) {
+    public Article(String title, List<String> places, String text) {
         this.title = title;
         this.places = places;
         this.text = text;

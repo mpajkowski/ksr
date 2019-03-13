@@ -4,9 +4,10 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Pattern;
 
-public class ReutersExtractor {
+public class ReutersExtractor implements Extractor<Article> {
     static final Pattern REUTERS_PATTERN = Pattern.compile(
             String.format("<PLACES>(.*?)</PLACES>.*?<TITLE>(.*?)</TITLE>.*?<BODY>(.*?)</BODY>")
     );
@@ -17,7 +18,7 @@ public class ReutersExtractor {
 
     static final String ARTICLE_CLOSE_TAG = "</REUTERS>";
 
-    public ArrayList<Article> extractSgmFile(String path) throws IOException {
+    public List<Article> extract(String path) throws IOException {
         var articles = new ArrayList<Article>();
 
         try (var br = new BufferedReader(new FileReader(path))) {
