@@ -5,20 +5,20 @@ import java.util.List;
 
 public class Main {
   public static void main(String[] args) {
-      var extractor = new ReutersExtractor();
+      var extractor = new ReutersDataParser();
 
       List<Article> articles = null;
       try {
-          articles = extractor.extract("data/reut2-000.sgm");
+          articles = extractor.parse("data/reut2-000.sgm");
       } catch (IOException e) {
           e.printStackTrace();
       }
 
+      int i = 0;
       for (var article : articles) {
-          System.out.println(article.getTitle());
-          System.out.println("--------------------");
+          System.out.print(i++ + ": title: " + article.getTitle() + ", place(s): ");
           for (var place : article.getPlaces()) {
-              System.out.println(place);
+              System.out.print(place + " ");
           }
           System.out.println();
       }
