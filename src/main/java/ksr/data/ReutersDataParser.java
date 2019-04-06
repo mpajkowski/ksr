@@ -1,4 +1,7 @@
-package ksr;
+package ksr.data;
+
+import ksr.data.Article;
+import ksr.data.DataParser;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -27,8 +30,10 @@ public class ReutersDataParser implements DataParser<Article> {
         var articleMatcher = REUTERS_PATTERN.matcher(fileContent);
 
         while (articleMatcher.find()) {
-            var title = articleMatcher.group(2).replaceAll("&lt;", "<");
-            var text = articleMatcher.group(3).replaceAll("&lt;", "<");
+            var title = articleMatcher.group(2)
+                    .replaceAll("&lt;", "<");
+            var text = articleMatcher.group(3)
+                    .replaceAll("&lt;", "<");
 
             var places = new ArrayList<String>();
             var placesMatcher = LIST_PATTERN.matcher(articleMatcher.group(1));

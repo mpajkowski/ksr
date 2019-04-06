@@ -6,10 +6,23 @@
   <groupId>ksr1</groupId>
   <artifactId>ksr1</artifactId>
   <version>1.0-SNAPSHOT</version>
+  <repositories>
+    <repository>
+      <id>caarmen</id>
+      <url>http://dl.bintray.com/caarmen/maven</url>
+    </repository>
+  </repositories>
   <properties>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
   </properties>
+  <dependencies>
+    <dependency>
+      <groupId>ca.rmen</groupId>
+      <artifactId>porter-stemmer</artifactId>
+      <version>1.0.0</version>
+    </dependency>
+  </dependencies>
   <build>
     <plugins>
       <plugin>
