@@ -10,7 +10,7 @@ public class KNNClassifier implements Classifier {
     private Metric metric;
     private final int k;
 
-    KNNClassifier(Metric metric, int k) {
+    public KNNClassifier(Metric metric, int k) {
         this.metric = metric;
         this.k = k;
     }
@@ -24,9 +24,19 @@ public class KNNClassifier implements Classifier {
                         trainingSample.getVector()), trainingSample);
             }
 
-            List<String> nearest = distances.entrySet().stream()
+            List<String> nearestLabels = distances.entrySet().stream()
+                    .limit(k)
                     .map(entry -> entry.getValue().getLabel())
                     .collect(Collectors.toList());
+
+            Map<String, Long> nearestLabelsCount = nearestLabels.stream()
+                    .collect(Collectors.groupingBy(label -> label,
+                            Collectors.counting()));
+
+            String predictedLabel = Collections.max(nearestLabelsCount.entrySet(),
+                    Map.Entry.comparingByValue()).getKey();
+
+            testSample.setClassifiedLabel(predictedLabel);
         }
     }
 }
