@@ -19,11 +19,6 @@ public class TaxiCabMetric implements Metric {
             }
         }
 
-        distance += vecB.entrySet().stream()
-                .filter(elem -> vecA.containsKey(elem.getKey()))
-                .mapToDouble(elem -> Math.abs(elem.getValue()))
-                .sum();
-
         return distance;
     }
 }

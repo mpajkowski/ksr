@@ -35,6 +35,7 @@ public class TFIDFExtractor implements Extractor {
                 var tfxidf = termFrequency * inverseDocumentFrequency;
                 vector.put(distinctWords.indexOf(word), tfxidf);
             }
+
             processedArticleList.add(new ProcessedArticle(vector,
                     article.getPlaces().get(0))); // take the first label
         }

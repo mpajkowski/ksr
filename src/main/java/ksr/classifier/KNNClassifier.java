@@ -2,7 +2,6 @@ package ksr.classifier;
 
 import ksr.data.ProcessedArticle;
 
-import javax.swing.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
