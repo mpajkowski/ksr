@@ -25,3 +25,7 @@ buildNumber.properties
 .project
 *.iml
 *.pdf
+sprawozdanie/sprawozdanie.aux
+sprawozdanie/sprawozdanie.fdb_latexmk
+sprawozdanie/sprawozdanie.fls
+sprawozdanie/sprawozdanie.synctex.gz

@@ -37,7 +37,7 @@ public class TFIDFExtractor implements Extractor {
             }
 
             processedArticleList.add(new ProcessedArticle(vector,
-                    article.getPlaces().get(0))); // take the first label
+                    article.getPlace())); // take the first label
         }
 
         return processedArticleList;

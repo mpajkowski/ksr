@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
 public class Application {
     private static List<String> paths;
     private static List<String> places;
+    private static int K_PARAM;
 
 
     public static void run() {
@@ -39,10 +40,9 @@ public class Application {
         var preprocessor = new Preprocessor(stoplist);
 
         articles = articles.stream()
-                .filter(article -> article.getPlaces().size() == 1)
                 .filter(article -> {
                     for (var place : places) {
-                        if (place.equals(article.getPlaces().get(0))) {
+                        if (place.equals(article.getPlace())) {
                             return true;
                         }
                     }
@@ -51,7 +51,8 @@ public class Application {
                 .collect(Collectors.toList());
 
         articles.forEach(preprocessor::preprocess);
-        var extractor = new TFIDFExtractor(articles);
+        //var extractor = new TFIDFExtractor(articles);
+        var extractor = new DistanceFromBeginExtractor(articles);
         var processedArticles = extractor.extractFeatures();
         var articlesCount = processedArticles.size();
 
@@ -69,7 +70,7 @@ public class Application {
         }
 
         Metric metric = new TaxiCabMetric();
-        Classifier classifier = new KNNClassifier(metric, 10);
+        Classifier classifier = new KNNClassifier(metric, K_PARAM);
         classifier.classify(trainingSet, testSet);
 
         int classifiedCounter = 0;
@@ -89,6 +90,8 @@ public class Application {
     }
 
     static {
+        K_PARAM = 10;
+
         paths = new ArrayList<>();
         paths.add("data/reut2-000.sgm");
         paths.add("data/reut2-001.sgm");

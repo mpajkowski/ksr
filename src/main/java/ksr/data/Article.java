@@ -3,21 +3,21 @@ package ksr.data;
 import java.util.List;
 
 public class Article {
-    private List<String> places;
+    private String place;
     private String title;
     private String body;
     private List<String> text;
 
-    public List<String> getPlaces() {
-        return places;
+    public String getPlace() {
+        return place;
     }
 
     public List<String> getText() {
         return text;
     }
 
-    public Article(List<String> places, String title, String body) {
-        this.places = places;
+    public Article(String place, String title, String body) {
+        this.place = place;
         this.title = title;
         this.body = body;
     }

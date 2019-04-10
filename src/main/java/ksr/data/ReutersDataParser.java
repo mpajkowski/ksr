@@ -43,7 +43,7 @@ public class ReutersDataParser implements DataParser<Article> {
             }
 
             if (places.size() > 0) {
-                articles.add(new Article(places, title, text));
+                articles.add(new Article(places.get(0), title, text));
             }
         }
 
