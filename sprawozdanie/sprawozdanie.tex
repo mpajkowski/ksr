@@ -22,20 +22,94 @@
 \maketitle
 
 \section{Cel}
-Celem zadania było zaprojektowanie i stworzenie programu komputerowego, którego zadaniem
-jest klasyfikacja obiektów z wykorzystaniem technik takich jak ekstrakcja cech oraz algorytmu
-k-najbliższych sąsiadów.
+Celem zadania było zaprojektowanie i stworzenie szkieletu aplikacji do klasyfikacji metodą k-NN na
+tyle uniwersalnego, aby był on niezależny od typu obiektów, które podlegają klasyfikacji.
 
 \section{Wprowadzenie}
-{\color{blue}
-We wprowadzeniu należy zaprezentować całą teorię potrzebną do realizacji
-zadania (przy czym należy tu ograniczyć się wyłącznie do tego, co było
-wykorzystane) tak aby osoba, która nigdy wcześniej nie zetknęła się z tą
-tematyką, potrafiła zrozumieć dalszy opis. Część ta powinna wprowadzać
-wszystkie wykorzystywane wzory, oznaczenia itp., do których należy się
-odwoływać w dalszej części niniejszgo sprawozdania. Zamieszczony tu własny
-opis teorii (a nie skopiowany!) należy poprzeć odwołaniami bibliograficznymi
-do literatury zamieszczonej na końcu. }
+\subsection{Algorytm k-najbliższych sąsiadów (k-NN)}
+Algorytm k-NN (\textit{k-nearest neightbours}) jest używany do klasyfikacji danych.
+Element zbioru danych $ R $ jest reprezentowany jako wektor cech oraz etykieta - może być
+ona słownym opisem jednoznacznie określającym przynależność obiektu $ x \in R $ do danej
+klasy. Zbiór $R$ należy podzielić na dwa podzbiory - podzbiór uczący $ R_u $ $ M
+$-elementowy ($M < N$) oraz podzbiór testowy $ R_t $ $ N-M $-elementowy.  \newline\newline
+Następnie dla każdego elementu ze zbioru $ R_t $:
+
+\begin{enumerate}
+  \item Za pomocą metryki obliczamy dystans do każdego elementu ze zbioru $ R_u $.
+  \item Spośród uzyskanych odległości wybieramy $k$ najmniejszych.
+  \item Spośród $ k $ obiektów wybieramy najliczniej reprezentowaną etykietę.
+  \item Przypisujemy tę etykietę do badanego obiektu ze zbioru $ R_t $.
+\end{enumerate}
+
+W następnym kroku należy posłużyć się etykietami elementów zbioru $ R_t $ aby sprawdzić trafność
+prognoz - należy porównać je z etykietami przypisanymi przez algorytm.
+
+\subsection{Ekstrakcja cech}
+Celem ekstrakcji cech jest zamiana zbioru obiektów rzeczywistych na ich reprezentację -
+otrzymujemy wektor cech wraz z wagami - są one reprezentacją badanego obiektu.
+Taka reprezentacja jest wygodna dla maszynowego przetwarzania informacji oraz
+umożliwia porównywanie obiektów ze sobą. W przypadku ekstrakcji cech z tekstu - cechami
+mogą być słowa występujące we wszystkich tekstach.
+
+Aby efektywnie pracować na tekstowych zbiorach danych należy spośród wszystkich słów wybrać te
+istotne. Wiele słów w języku naturalnym pełni wyłącznie funkcje pomocnicze a ich obecność
+jest powiązana z specyficznymi dla danego języka regułami gramatycznymi, syntaktycznymi
+lub semantycznymi. Listę słów, które będziemy pomijać w procesie ekstrakcji cech
+nazywamy \textit{stoplistą}.
+
+
+Słowa języka naturalnego są odmieniane co może powodować pewne kłopoty podczas ekstrakcji
+cech - słowa różniące się wyłącznie końcówką będą traktowane jako niezależne cechy. Aby
+usprawnić ekstrakcję cech, a w konsekwencji przeprowadzić skuteczniejszą klasyfikację
+należy wykonać proces \textit{stemizacji}. Polega on na wyodrębnieniu korzenia spośród
+słów korpusu.
+
+\subsubsection{Częstotliwość występowania termów}
+Metoda ta sprawdza częstotliwość występowania danego termu w dokumencie
+
+\begin{equation}
+  tf_{i,j} = \frac{n_{i,j}}{\sum_k n_{k,j}}
+\end{equation}
+
+\subsubsection{TF-IDF}
+Aby wyznaczyć wagi słów kluczowych można posłużyć się algorytmem TF-IDF (\textit{term
+frequency - inverse document frequency}).
+
+Wartość TF-IDF jest wyrażona wzorem
+\begin{equation}
+  (tf\mbox{-}idf)_{i,j} = tf_{i,j} \times idf_{i}
+\end{equation}
+
+$ tf{i,j} $ to wartość \textit{term frequency}, definiuje się ją jako
+
+\begin{equation}
+  tf_{i,j} = \frac{n_{i,j}}{\sum_k n_{k,j}}
+\end{equation}
+
+$ n_{i, j} $ jest liczbą wystąpień termu w danym tekście $ d_{j} $, a mianownik jest
+liczbą wszystkich termów w $ d_{j} $.
+
+$ idf_{i} $ to wartość \textit{inverse document frequency} opisana wzorem
+\begin{equation}
+  idf_{i} = \log \frac{|R|}{|\{r: t_i \in r\}|}
+\end{equation}
+
+gdzie licznik oznacza liczbę dokumentów ze zbioru $ R $ a mianownik liczbę dokumentów
+zawierających przynajmniej jedno wystąpienie termu $ t_{i} $.
+
+\subsubsection{Odległość słowa kluczowego od początku tekstu}
+Jest to prosta metoda ekstrakcji cech, składają się na nią następujące czynności:
+
+\begin{enumerate}
+  %
+  %\item Należy stworzyć listę wszystkich termów występujących w korpusie ($ T $)
+  %  $$ T = R \rightarrow \{d_{i} | d_{i} \in R \} \rightarrow \{t_{n} | t_{n} \in d_{i}\} $$
+  %
+  \item Dla każdego dokumentu $ d_{i} $ w korpusie należy stworzyć listę słów ($ U $)
+    $$ U = \{ u_{k} | u_{k} \in d_{i} \} $$
+  \item Wagą każdego słowa $ u $ w dokumencie $ d_{j} $ jest $ k $ - czyli jego pozycja w
+    dokumencie.
+\end{enumerate}
 
 \section{Opis implementacji}
 {\color{blue}
@@ -43,12 +117,6 @@ Należy tu zamieścić krótki i zwięzły opis zaprojektowanych klas oraz powi�
 między nimi. Powinien się tu również znaleźć diagram UML  (diagram klas)
 prezentujący najistotniejsze elementy stworzonej aplikacji. Należy także
 podać, w jakim języku programowania została stworzona aplikacja. }
-
-\begin{align*}
-  tf =
-
-  \frac{tf}{idf}
-\end{align}
 
 \section{Materiały i metody}
 {\color{blue}
