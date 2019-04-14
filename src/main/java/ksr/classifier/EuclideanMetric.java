@@ -9,11 +9,17 @@ public class EuclideanMetric implements Metric{
 
         for (var entry: vecA.entrySet()) {
             var index = entry.getKey();
+            var valueA = entry.getValue();
+            var valueB = vecB.containsKey(index) ? vecB.get(index) : 0;
+
+            distance += Math.pow(valueA - valueB, 2);
+        }
+
+        for (var entry: vecB.entrySet()) {
+            var index = entry.getKey();
             var value = entry.getValue();
 
-            if (vecB.containsKey(index)) {
-                distance += Math.pow(vecB.get(index) - value, 2);
-            } else {
+            if (!vecA.containsKey(index)) {
                 distance += Math.pow(value, 2);
             }
         }

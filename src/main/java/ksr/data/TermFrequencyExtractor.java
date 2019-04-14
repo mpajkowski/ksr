@@ -3,10 +3,10 @@ package ksr.data;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class TermFrequencyMatrixExtractor implements Extractor {
+public class TermFrequencyExtractor implements Extractor {
     private List<Article> corpus;
 
-    public TermFrequencyMatrixExtractor(List<Article> corpus) {
+    public TermFrequencyExtractor(List<Article> corpus) {
         this.corpus = corpus;
     }
 

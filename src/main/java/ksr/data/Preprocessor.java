@@ -4,7 +4,6 @@ import ca.rmen.porterstemmer.PorterStemmer;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class Preprocessor {
     private List<String> stoplist;

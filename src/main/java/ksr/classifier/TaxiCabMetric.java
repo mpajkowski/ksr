@@ -9,12 +9,15 @@ public class TaxiCabMetric implements Metric {
 
         for (var it : vecA.entrySet()) {
             var index = it.getKey();
-            var value = it.getValue();
+            var valueA = it.getValue();
+            var valueB = vecB.containsKey(index) ? vecB.get(index) : 0;
 
-            if (vecB.containsKey(index)) {
-                distance += Math.abs(value - vecB.get(index));
-            } else {
-                distance += value;
+            distance += Math.abs(valueA - valueB);
+        }
+
+        for (var it: vecB.entrySet()) {
+            if (!vecA.containsKey(it.getKey())) {
+                distance += Math.abs(it.getValue());
             }
         }
 

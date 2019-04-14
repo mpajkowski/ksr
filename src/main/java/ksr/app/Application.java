@@ -1,9 +1,6 @@
 package ksr.app;
 
-import ksr.classifier.Classifier;
-import ksr.classifier.KNNClassifier;
-import ksr.classifier.Metric;
-import ksr.classifier.TaxiCabMetric;
+import ksr.classifier.*;
 import ksr.data.*;
 
 import java.io.IOException;
@@ -51,8 +48,7 @@ public class Application {
                 .collect(Collectors.toList());
 
         articles.forEach(preprocessor::preprocess);
-        //var extractor = new TFIDFExtractor(articles);
-        var extractor = new DistanceFromBeginExtractor(articles);
+        var extractor = new TermFrequencyExtractor(articles);
         var processedArticles = extractor.extractFeatures();
         var articlesCount = processedArticles.size();
 
@@ -69,7 +65,7 @@ public class Application {
             testSet.add(processedArticles.get(i));
         }
 
-        Metric metric = new TaxiCabMetric();
+        Metric metric = new TermFrequencyMatrixMetric();
         Classifier classifier = new KNNClassifier(metric, K_PARAM);
         classifier.classify(trainingSet, testSet);
 
