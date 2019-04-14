@@ -111,6 +111,34 @@ Jest to prosta metoda ekstrakcji cech, składają się na nią następujące czy
     dokumencie.
 \end{enumerate}
 
+\subsection{Metryki}
+Do obliczeń odległości tekstów zostały wykorzystane następujące metryki:
+
+\begin{enumerate}
+\item Odległość euklidesowa - w celu obliczenia odległości $ d_{e}(x,y) $ między dwoma punktami $ x, y $ należy obliczyć pierwiastek kwadratowy z sumy drugich potęg różnic wartości współrzędnych o tych samych indeksach, zgodnie ze wzorem:
+$$
+d_{e}(x,y)= \sqrt{ (y_{1} - x_{1})^2 + \cdots + (y_{n} - x_{n})^2 }
+$$
+
+\item Metryka taksonometryczna - w celu obliczenia odległości $ d_{e}(x,y) $ między dwoma punktami $ x, y $ należy obliczyć sumę wartości bezwzględnych różnic współrzędnych punktów $ x $ oraz $ y $, zgodnie ze wzorem:
+$$
+d_{m}(x,y)= \sum_{k=1}^{n} | x_{k} - y_{k} |
+$$
+
+\item Metryka Czebyszewa - w celu obliczenia odległości $ d_{e}(x,y) $ między dwoma punktami $ x, y $ należy obliczyć maksymalną wartość bezwzględnych różnic współrzędnych punktów $ x $ oraz $ y $, zgodnie ze wzorem:
+$$
+d_{ch}(x,y)= \max_{i} |x_{i} - y_{i}|
+$$
+
+\item Metryka kosinusowa - w celu obliczenia odległości $ d_{e}(x,y) $ między dwoma punktami $ x, y $ należy obliczyć ich iloczyn skalarny oraz iloczyn ich postaci znormalizowanej, a następnie uzyskać ich iloraz:
+$$
+d_{c}(x,y)= 1 - \frac{x \cdot y}{||x|| \cdot ||y||} = \frac{\sum_{i=1}^{n} x_{i} \cdot y_{i}}{\sqrt{\sum_{i=1}^{n} x_{i}^2}\sqrt{\sum_{i=1}^{n} y_{i}^2}}
+$$
+
+\end{enumerate}
+
+
+
 \section{Opis implementacji}
 {\color{blue}
 Należy tu zamieścić krótki i zwięzły opis zaprojektowanych klas oraz powiązań
